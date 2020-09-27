@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <!-- Replace Name Surname with your name and surname -->
+    <meta name="author" content="Matthew Schoeman" />
+    <!--Responsiveness-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!--Bootstrap CDN-->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+    <!------------------------------------------FONT AWESOME-------------------------------------------------------->
+    <!--<script src="https://kit.fontawesome.com/5c041f227c.js" crossorigin="anonymous"></script>-->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.14.0/css/all.css" integrity="sha384-HzLeBuhoNPvSl5KYnjx0BT+WB0QEEqLprO+NBkkk5gbc67FTaL7XIGa2w1L0Xbgc" crossorigin="anonymous">
+    <!------------------------------------------FONT AWESOME-------------------------------------------------------->
+    <!--style.css-->
+    <link href="style.css" rel="stylesheet" type="text/css">
+
+    <title>IMY 220 - A1</title>
+</head>
+
+<body>
+    <section id="forms" class="container">
+        <div class="row">
+            <!--Card 1-->
+            <div class="col-sm-6 mb-sm-0 col-12 mb-2">
+                <div class="card">
+
+
+                    <form action="log-in.php" method="post">
+                        <div class="card-header">Log in</div>
+
+                        <div class="card-body">
+
+                            <div class="row">
+
+                                <div class="col-lg-6 col-12">
+                                    <div class="form-group">
+                                        <label for="email">Email address:</label>
+                                        <input type="email" name="email" id="email" placeholder="john.doe@gmail.com" class="form-control" />
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 col-12">
+                                    <div class="form-group">
+                                        <label for="pass">Password:</label>
+                                        <input type="password" name="pass" id="pass" placeholder="********" class="form-control" />
+                                    </div>
+                                </div>
+
+                            </div>
+                            <button class="btn btn-dark">
+                                Log in 
+                                <i class="fas fa-angle-right"></i>
+                            </button>
+
+                        </div>
+
+                    </form>
+
+
+                </div>
+            </div>
+            <!--Card 2-->
+            <div class="col-sm-6 mt-sm-0 col-12 mt-2">
+                <div class="card">
+
+
+                    <form action="register.php" method="post">
+                        <div class="card-header">Register</div>
+
+                        <div class="card-body">
+
+                            <div class="row">
+
+                                <div class="col-lg-6 col-12">
+                                    <div class="form-group">
+                                        <label for="fname">First name:</label>
+                                        <input class="form-control" type="text" name="fname" id="fname" placeholder="John" />
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 col-12">
+                                    <div class="form-group">
+                                        <label for="lname">Last name:</label>
+                                        <input class="form-control" type="text" name="lname" id="lname" placeholder="Doe" />
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 col-12">
+                                    <div class="form-group">
+                                        <label for="email1">Email address:</label>
+                                        <input class="form-control" type="email" name="email1" id="email1" placeholder="john.doe@gmail.com" />
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 col-12 ">
+                                    <div class="form-group">
+                                        <label for="date">Date of birth:</label>
+                                        <input class="form-control" type="date" name="date" id="date" />
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 col-12">
+                                    <div class="form-group">
+                                        <label for="pass1">Create password:</label>
+                                        <input class="form-control" type="password" name="pass1" id="pass1" placeholder="********" />
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 col-12">
+                                    <div class="form-group">
+
+                                        <label for="pass1">Confirm password:</label>
+                                        <input class="form-control" type="password" name="pass2" id="pass2" placeholder="********" />
+                                    </div>
+                                </div>
+
+                            </div>
+                            <!------------------------------------------FONT AWESOME-------------------------------------------------------->
+                            <button class="btn btn-dark">
+                                Register 
+                                <i class="fas fa-angle-right"></i>
+                            </button>
+                            <!------------------------------------------FONT AWESOME-------------------------------------------------------->
+                        </div>
+
+                    </form>
+
+
+                </div>
+            </div>
+        </div>
+    </section>
+</body>
+
+</html>

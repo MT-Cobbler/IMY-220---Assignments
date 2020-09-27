@@ -1,0 +1,24 @@
+@import url('https://fonts.googleapis.com/css2?family=Arimo:wght@700&family=Quicksand:wght@600&display=swap');
+.card-header {
+    font-family: 'Arimo', sans-serif
+}
+
+.card-body {
+    font-family: 'Quicksand', sans-serif;
+}
+
+
+/*------------------------------------------FONT AWESOME--------------------------------------------------------*/
+
+@media only screen and (min-width: 992px) {
+    button .fa-angle-right {
+        transition: transform 0.5s, margin-left 0.5s;
+    }
+    button:hover .fa-angle-right {
+        margin-left: 1em;
+        transform: rotate(90deg);
+    }
+}
+
+
+/*------------------------------------------FONT AWESOME--------------------------------------------------------*/

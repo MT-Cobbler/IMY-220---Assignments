@@ -1,0 +1,170 @@
+<?php
+// See all errors and warnings
+
+use function PHPSTORM_META\type;
+
+error_reporting(E_ALL);
+ini_set('error_reporting', E_ALL);
+
+$server = "localhost";
+$username = "root";
+$password = "";
+$database = "dbUser";
+$mysqli = mysqli_connect($server, $username, $password, $database);
+
+$email = isset($_POST["email"]) ? $_POST["email"] : false;
+$pass = isset($_POST["pass"]) ? $_POST["pass"] : false;
+
+$userID = isset($_POST['userID']) ? $_POST['userID'] : false;
+$filename = isset($_POST['filename']) ? $_POST['filename'] : false;
+$sql = "INSERT INTO tbgallery (user_id, filename) VALUES ('$userID', '$filename')";
+$resImage = $mysqli->query($sql);
+
+
+// $query = "INSERT INTO tbgallery (user_id, filename) VALUES ('$userID', '$filename')";
+
+// if email and/or pass POST values are set, set the variables to those values, otherwise make them false
+?>
+
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>IMY 220 - Assignment 2</title>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+	<link rel="stylesheet" type="text/css" href="style.css" />
+	<meta charset="utf-8" />
+	<meta name="author" content="Matthew Schoeman">
+	<!-- Replace Name Surname with your name and surname -->
+
+</head>
+
+<body>
+	<div class="container">
+		<?php
+		if ($email && $pass) {
+
+			$query = "SELECT * FROM tbusers WHERE email = '$email' AND password = '$pass'";
+			$res = $mysqli->query($query);
+			if ($row = mysqli_fetch_array($res)) {
+				echo 	"<table class='table table-bordered mt-3'>
+								<tr>
+									<td>Name</td>
+									<td>" . $row['name'] . "</td>
+								<tr>
+								<tr>
+									<td>Surname</td>
+									<td>" . $row['surname'] . "</td>
+								<tr>
+								<tr>
+									<td>Email Address</td>
+									<td>" . $row['email'] . "</td>
+								<tr>
+								<tr>
+									<td>Birthday</td>
+									<td>" . $row['birthday'] . "</td>
+								<tr>
+							</table>";
+
+				echo 	"<form method='POST' action='login.php' enctype='multipart/form-data'>
+								<div class='form-group'>
+									<input type='hidden' name='email' value='" . $email . "'/>
+									<input type='hidden' name='pass' value='" . $pass . "'/>
+									<input type='file' class='form-control' name='picToUpload' id='picToUpload' /><br/>";
+
+
+
+				// $validImage = getimagesize(($_FILES["picToUpload"]["tmp_name"]));
+				$imageStatus = 0;
+
+				//must get the user_id associated with the email and password
+
+				// if ($validImage !== false) {
+
+				/*----------------Get the user_id------------------*/
+				$search = "SELECT user_id FROM tbusers WHERE email = '$email' AND password = '$pass'";
+				$result = $mysqli->query($search);
+				$sResult = mysqli_fetch_array($result);
+				$userID = $sResult['user_id'];
+				//echo "User ID: ".$userID . "<br/>";
+				/*----------------Get the user_id------------------*/
+				/*-----------------Change the name of the file----------------*/
+
+				$directory = "gallery/";
+				$targetFile = $directory . basename($_FILES['picToUpload']['name']); /*--------Get the name of the file--------*/
+				//echo "targetFile: " . $targetFile . "<br/>";
+				$imageStatus = 0;
+				$imageFileType = strtolower(pathinfo($targetFile, PATHINFO_EXTENSION)); /*-----Get the extension--------*/
+				//echo "File type: " . $imageFileType . "<br/>";
+
+				//image without the extension
+				$info = pathinfo($targetFile);
+				$nameOnly = basename($targetFile, '.' . $info['extension']);
+				//echo $nameOnly ."<br/>";
+				//new name
+				$newName = $userID . "." . $nameOnly;
+				//echo "New Name of file: " .$newName ."<br/>"; 
+				$filename = $newName . '.' . $imageFileType;
+				$directory = $directory . $newName . "." . $imageFileType;
+				//echo "Directory: " . $directory ."<br/>";
+				/*-----------------Change the name of the file----------------*/
+
+				if (file_exists($targetFile)) {
+					$imageStatus = 1;
+				}
+				if ($imageFileType != 'jpg' && $imageFileType != 'jpeg') {
+					$imageStatus = 2;
+				}
+				if ($_FILES['picToUpload']['size'] > 1000000) {
+					$imageStatus = 3;
+				}
+
+				//----------------------------------------------------------------------//
+				if ($imageStatus == 0) {
+					//upload using the new name in the existing directory
+					if (move_uploaded_file($_FILES["picToUpload"]["tmp_name"], $directory)) {
+						////echo "The file " . basename($_FILES["picToUpload"]["name"]) . " has been uploaded.";
+						$mysqli->close();
+					} else {
+						//echo "Sorry, there was an error uploading your file.";
+					}
+				} elseif ($imageStatus == 1) {
+					//if the file already exists
+					echo "Sorry this file already exists";
+				} elseif ($imageStatus == 2) {
+					//the file is not the right type
+					//echo "This file is not of type jpg/jpeg";
+				} elseif ($imageStatus == 3) {
+					echo "The file is too big - pleasae upload a file that is 1mb or smaller";
+				} else {
+					//echo "Sorry, there was an error uploading your file.";
+				}
+				echo 			"
+										<input type='hidden' name='userID' value='" . $userID . "'/>
+										<input type='hidden' name='filename' value='" . $filename . "'/>";
+
+				echo "<input type='submit' class='btn btn-standard' value='Upload Image' name='submit' />
+									</div>
+							 	</form>";
+				// } else {
+				//echo "This file is not an image";
+				// }
+
+
+				//----------------------------------------------------------------------//
+			} else {
+				echo 	'<div class="alert alert-danger mt-3" role="alert">
+	  							You are not registered on this site!
+	  						</div>';
+			}
+		} else {
+			echo 	'<div class="alert alert-danger mt-3" role="alert">
+	  						Could not log you in
+	  					</div>';
+		}
+
+		?>
+	</div>
+</body>
+
+</html>
