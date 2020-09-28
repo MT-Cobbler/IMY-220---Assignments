@@ -5,27 +5,8 @@ $(document).ready(function() {
             console.log("You have reached the bottom of the page");
             let url = "users.json";
             var duration = 1000;
-
-            //                    .then(() => {
-            //                        return getUsers(url);
-            //                    })
-            //                    .then(data => {
-            //                        sleep(duration);
-            //                        return data;
-            //                    })
-            //                    .then(data => {
-            //                        let objLength = data.length;
-            //                        for (let i = 0; i < objLength; i++) {
-            //                            $(createUserCard()).insertBefore(".loading")
-            //                            $(".card-title").last().html(data[i].name + " " + data[i].surname);
-            //                            $(".card-text").last().html(data[i].quote);
-            //                        }
-            //                    })
-
             sleep(duration)
-            console.log("got users");
             const response = await getUsers(url)
-            console.log("got users");
             const processResponse = await sleep(duration);
             let objLength = response.length;
             for (let i = 0; i < objLength; i++) {
@@ -33,7 +14,7 @@ $(document).ready(function() {
                 $(".card-title").last().html(response[i].name + " " + response[i].surname);
                 $(".card-text").last().html(response[i].quote);
             }
-
+            
         }
     })
     const getUsers = url => {
