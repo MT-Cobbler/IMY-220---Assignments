@@ -1,5 +1,5 @@
 $(document).ready(function() {
-    $(window).scroll(async function() {
+    $(window).on("scroll", async function() {
         if ($(window).scrollTop() >= $(document).height() - $(window).height()) {
             //Add something at the end of the page
             console.log("You have reached the bottom of the page");
@@ -14,7 +14,7 @@ $(document).ready(function() {
                 $(".card-title").last().html(response[i].name + " " + response[i].surname);
                 $(".card-text").last().html(response[i].quote);
             }
-            
+
         }
     })
     const getUsers = url => {
